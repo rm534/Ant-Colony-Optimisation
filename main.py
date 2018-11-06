@@ -11,6 +11,9 @@ class AntOptimiser:
     def __init__(self, data):  # TODO add to inputs for class
         self.data = data
         self.population = 10
+        self.max_tour_weight = 1000
+        self.solution = []
+        self.loop_done = False
         self._init_pheromone()
         self._init_ants_pop(self.population)
         return
@@ -43,8 +46,6 @@ class AntOptimiser:
             self.ants["ant" + str(ants)]["choices"] = choices
             ants += 1
 
-        print(self.ants)
-
     def path_choices(self, ant):
         for elements in self.ants[ant]["path"]:
             if elements in self.ants[ant]["choices"]:
@@ -55,29 +56,52 @@ class AntOptimiser:
             self.path_choices("ant" + str(x))
 
     def path_path(self, ant):
-        # TODO implement a path choice function
         choices = self.ants[ant]["choices"]
         pheromone = []
         sum_pheromone = 0
         prob = []
         for elements in choices:
-            pheromone.append(self.data["treasure" + str(choices[elements])]["pheromone"])
-            sum_pheromone += self.data["treasure" + str(choices[elements])]["pheromone"]
-        for elements in choices:
-            _prob = pheromone[elements] / sum_pheromone
+            pheromone.append(self.data["treasure" + str(elements)]["pheromone"])
+            sum_pheromone += self.data["treasure" + str(elements)]["pheromone"]
+
+        for elements in pheromone:
+            _prob = elements / sum_pheromone
             prob.append(_prob)
         pick = choice(a=choices, size=1, p=prob)
-
-        self.ants[ant]["path"].append(pick)
+        print(pick)
+        self.ants[ant]["path"].append(int(pick[0]))
+        # print(self.ants[ant]["path"])
         return
 
-    def update_path_path(self, ant):
+    def update_path_path(self):
+        finished = 0
         for x in range(1, self.population + 1):
-            self.path_path("ant" + str(x))
-        return
+            if self.tour_weight("ant" + str(x)) > self.max_tour_weight:
+                continue
+            else:
+                finished += 1
+                self.path_path("ant" + str(x))
+        if finished == 0:
+            self.loop_done = True
+        else:
+            self.loop_done = False
+
+    def tour_weight(self, ant):
+        path = self.ants[ant]["path"]
+        weights = []
+        sum_weight = 0
+        for node in path:
+            weights.append(self.data["treasure" + str(node)]["weight"])
+            sum_weight += int(self.data["treasure" + str(node)]["weight"])
+        # print(sum_weight)
+        return sum_weight
 
     def create_path(self):
-        # TODO implement a complete path creation based on number of ants
+        # TODO test and verify the path and the random choice
+        while self.loop_done == False:
+            self.update_path_path()
+            self.update_path_choices()
+        print(self.ants["ant1"]["path"])
         return
 
     def update_pheromone(self):
@@ -90,12 +114,18 @@ class AntOptimiser:
 
     def evaluate_fitness(self):
         # TODO implement fitness function
+        for x in range(1, self.population + 1):
+            solution = self.ants["ant" + str(x)]["path"]
+
         return
 
     def run_optimisation(self):
         # TODO implement the running of the optimisation algorithm
         return
 
+    def access_dict(self, node, *argv):
 
 if __name__ == "__main__":
     optimiser = AntOptimiser(Data.data)
+    # print(optimiser.data)
+    optimiser.create_path()
