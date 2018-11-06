@@ -26,5 +26,6 @@ if __name__ == "Data":
         treasure = treasure.replace(":", "")
         weight = extract(file_data[treasure_num+1])
         value = extract(file_data[treasure_num+2])
-        add_treasure(treasure, weight, value)
+        add_treasure(treasure, ID, weight, value)
         treasure_num += 3
+        ID += 1
