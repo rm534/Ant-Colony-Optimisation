@@ -184,7 +184,7 @@ class AntOptimiser:
                 if i == j:
                     self.pheromones[i][j] = 0
                 else:
-                    self.pheromones[i][j] = self.evaporation * self.pheromones[i][j]
+                    self.pheromones[i][j] = (1-self.evaporation) * self.pheromones[i][j]
 
 
     def deposit_pheromone(self, ant):
@@ -203,7 +203,7 @@ class AntOptimiser:
 
 
 if __name__ == "__main__":
-    optimiser = AntOptimiser(Data.data, evaporation=0.5, pheromone_weight=0.000000001, population=100)
+    optimiser = AntOptimiser(Data.data, evaporation=0.9, pheromone_weight=0.01, population=200)
     x = 0
 
     while x <= 10000:
