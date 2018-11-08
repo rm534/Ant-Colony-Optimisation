@@ -1,4 +1,4 @@
-from main import *
+from ant_colony_opt import *
 
 if __name__ == '__main__':
     optimiser = AntOptimiser(Data.data)

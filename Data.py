@@ -1,6 +1,6 @@
 file = open("data 2.txt", 'r')
-file_data = file.readlines()
 data = {}
+file_data = file.readlines()
 treasure_num = 1
 ID = 1
 
