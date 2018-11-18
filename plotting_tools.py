@@ -22,7 +22,7 @@ def read_solution(population, evaporation, pheromone_weight):
             pass
 
 
-    for i in range(0, len(file_data)-5):
+    for i in range(0, len(file_data)):
         count_x.append(i+1)
     print(np.shape(solutions_y), np.shape(count_x))
     return count_x, solutions_y
@@ -66,5 +66,5 @@ def plot_values_update(count_x, solution_y):
 
 
 if __name__ == "__main__":
-    count_x, solutions_y = read_solution(population=1, evaporation=0.00001, pheromone_weight=0.01)
+    count_x, solutions_y = read_solution(population=100, evaporation=0.05, pheromone_weight=0.8)
     plot_values_update(count_x, solutions_y)
