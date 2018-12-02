@@ -87,7 +87,7 @@ The carrying capacity of your car: 1000
   weight: 21
   value: 16
  treasure 30:
-  weight:60
+  weight: 60
   value: 4
  treasure 31:
   weight: 42
