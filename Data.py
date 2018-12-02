@@ -1,4 +1,4 @@
-file = open("data 2.txt", 'r')
+file = open("data.txt", 'r')
 data = {}
 file_data = file.readlines()
 treasure_num = 1

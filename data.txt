@@ -208,10 +208,6 @@ The carrying capacity of your car: 1000
   value: 49
  treasure 70:
   weight: 52
-
-
-
-
   value: 73
  treasure 71:
   weight: 75
